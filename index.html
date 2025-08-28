@@ -4,16 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo - Abas com Funções</title>
- 
+    <title>Exemplo</title>
     <style>
         * {
             font-size: 16px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            box-sizing: border-box;
         }
 
-        /* Ajusta altura e remove*/
         html,
         body {
             height: 100%;
@@ -21,14 +18,11 @@
             margin: 0;
         }
 
-        /* Usa flexbox para organizar a página em coluna: cabeçalho, conteúdo e rodapé */
         body {
             display: flex;
             flex-direction: column;
         }
 
-        /* ----- Cabeçalho ----- */
-        /* Define estilo e posicionamento do cabeçalho superior */
         #cabecalho {
             display: flex;
             align-items: center;
@@ -37,308 +31,114 @@
             padding: 1rem;
         }
 
-        /*círculo colorido com as iniciais */
         .logo {
             display: flex;
             justify-content: center;
             align-items: center;
+            align-content: center;
             width: 2rem;
             height: 2rem;
             padding: 0.7rem;
             border-radius: 100%;
             background-color: blue;
-            color: white;
+            color: #eee;
             font-weight: bold;
             margin-right: 1rem;
         }
 
-        /* Formato do título do site */
         .titulo {
-            color: #cecdcd;
+            color: #eee;
             font-size: 2rem;
         }
 
-        /* ----- Container principal ----- */
-        /* Área que contém o menu lateral e o conteúdo principal */
         .container {
             display: flex;
             flex: 1;
-            border: 0.2rem solid green;
-            /* Garante que a área se comporte bem com overflow */
-            min-height: 0;
+            border: 0.2rem solid green
         }
 
-        /* ----- Menu lateral ----- */
         .menu {
-            border-right: .2rem solid yellow;
+            border: .2rem solid yellow;
             width: 15rem;
-            background-color: #f8f9fa;
-        }
-        .menu ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-        /* Cada item do menu é clicável e tem borda inferior */
-        .menu li {
-            padding: 1rem;
-            cursor: pointer;
-            border-bottom: 1px solid #ddd;
-        }
-        /* Muda a cor do item do menu ao passar o mouse */
-        .menu li:hover {
-            background-color: #e9ecef;
+            padding: .5rem;
         }
 
-        /* ----- Área principal ----- */
+        .opcao {
+            display: flex;
+            background-color: #ddd;
+            padding: .4rem;
+            border-radius: .5rem;
+        }
+
+        .opcao:hover {
+            background-color: #ccc;
+            color: black;
+            box-shadow: 0rem .2rem .3rem .03rem #e7e7e7;;
+        }
+
+        .opcao:hover .icone-final {
+           opacity: 1;
+        }
+
+        a {
+            text-decoration: none;
+            color: #4a4949;
+        }
+
+
+        .icone-inicial {
+            /* border: .1rem solid red; */
+            width: 1.5rem;
+            margin-right: .3rem;
+        }
+
+        .rotulo {
+            flex: 1;
+        }
+
+        .icone-final {
+            /* border: .1rem solid red; */
+            width: 1.5rem;
+            margin-left: .3rem;
+            opacity: 0;
+            transition: opacity 0.3seg ease;
+        }
+
         .principal {
             flex: 1;
-            border-left: .2rem solid aqua;
-            padding: 1rem;
-            overflow-y: auto;
-        }
-        /* Oculta todas as seções até que sejam ativadas via JS */
-        .tab-content {
-            display: none;
+            border: .2rem solid aqua;
         }
 
-        /* ----- Rodapé ----- */
         #rodape {
-            border-top: 0.2rem solid blue;
+            border: 0.2rem solid blue;
             height: 5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* ----- Estilos específicos do chat ----- */
-        /* Área que exibe mensagens enviadas e respostas automáticas */
-        #chatMessages {
-            height: 250px;
-            border: 1px solid #ccc;
-            padding: 0.5rem;
-            margin-bottom: 0.5rem;
-            overflow-y: auto;
-            background-color: #fff;
-        }
-        /* Campo de entrada da mensagem do chat */
-        #chatInput {
-            width: 75%;
-            padding: 0.5rem;
-            margin-right: 0.5rem;
-        }
-
-        /* ----- Temas da página ----- */
-        /*
-          Estas classes controlam as cores de fundo e texto da interface.
-          Quando o usuário seleciona "Claro" ou "Escuro" nas configurações,
-          a classe correspondente é aplicada ao elemento <body> para modificar o tema.
-        */
-        body.theme-claro {
-            background-color: #ffffff;
-            color: #0f172a;
-        }
-
-        body.theme-escuro {
-            background-color: #121212;
-            color: #f2f2f2;
-        }
-
-        /* Ajustes de cores para elementos no tema escuro */
-        body.theme-escuro #cabecalho {
-            background-color: #0d1b2a;
-        }
-        body.theme-escuro .menu {
-            background-color: #1e293b;
-            border-right-color: #334155;
-        }
-        body.theme-escuro .principal {
-            border-left-color: #334155;
-        }
-        body.theme-escuro .container {
-            border-color: #334155;
-        }
-        body.theme-escuro #rodape {
-            border-top-color: #334155;
-        }
-        body.theme-escuro .menu li {
-            border-bottom-color: #334155;
-        }
-        body.theme-escuro .menu li:hover {
-            background-color: #475569;
-        }
-        body.theme-escuro #chatMessages {
-            border-color: #334155;
-            background-color: #1e293b;
-        }
-        body.theme-escuro #chatInput {
-            background-color: #334155;
-            color: #f2f2f2;
-            border: 1px solid #475569;
-        }
-        body.theme-escuro button {
-            background-color: #334155;
-            color: #f2f2f2;
-            border: 1px solid #475569;
         }
     </style>
+    <script src="https://kit.fontawesome.com/b581796bdd.js" crossorigin="anonymous"></script>
 </head>
 
-<body class="theme-claro">
-    <!-- Cabeçalho com logo e título -->
+<body>
     <header id="cabecalho">
-        <div class="logo">FN</div>
+        <div class="logo">W</div>
         <h1 class="titulo">Meu Site</h1>
     </header>
-
-    <!-- Conteúdo com menu e área principal -->
     <div class="container">
-        <!-- Menu lateral com abas: cada item chama showTab() -->
         <nav class="menu">
-            <ul>
-                <!-- A ordem das abas foi modificada para exibir "Meu Perfil" antes de "Configurações" -->
-                <li onclick="showTab('perfil')">Meu Perfil</li>
-                <li onclick="showTab('config')">Configurações</li>
-                <li onclick="showTab('chat')">Chat de Ajuda</li>
-            </ul>
+            <a href="login.html">
+                <div class="opcao">
+                    <div class="icone-inicial">
+                        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                    </div>
+                    <div class="rotulo">Sair</div>
+                    <div class="icone-final">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </div>
+                </div>
+            </a>
         </nav>
-        <main class="principal">
-            <!-- Seção de Configurações: permite ajustar preferências como tema -->
-            <section id="config" class="tab-content">
-                <h2>Configurações</h2>
-                <p>Aqui você pode ajustar as preferências do site, como notificações e outras opções.</p>
-                <!-- Seção Exibição agrupa configurações relacionadas à aparência -->
-                <h3>Exibição</h3>
-                <p>Escolha o tema do site:</p>
-                <div>
-                    <label for="themeSelect">Tema:</label>
-                    <!-- Quando o usuário escolher um valor, chamamos setTheme(this.value) para aplicar o tema -->
-                    <select id="themeSelect" onchange="setTheme(this.value)">
-                        <option value="claro">Claro</option>
-                        <option value="escuro">Escuro</option>
-                    </select>
-                </div>
-            </section>
-
-            <!-- Seção de Meu Perfil: formulário para dados pessoais -->
-            <section id="perfil" class="tab-content">
-                <h2>Meu Perfil</h2>
-                <p>Nesta área você pode visualizar e editar suas informações pessoais.</p>
-                <form onsubmit="event.preventDefault(); alert('Perfil salvo com sucesso!');">
-                    <div style="margin-bottom: 0.5rem;">
-                        <label for="nome">Nome:</label><br>
-                        <input type="text" id="nome" placeholder="Seu nome" style="width: 100%; padding: 0.4rem;">
-                    </div>
-                    <div style="margin-bottom: 0.5rem;">
-                        <label for="email">Email:</label><br>
-                        <input type="email" id="email" placeholder="Seu email" style="width: 100%; padding: 0.4rem;">
-                    </div>
-                    <button type="submit">Salvar</button>
-                </form>
-            </section>
-
-            <!-- Seção de Chat de Ajuda: interface simples para conversas -->
-            <section id="chat" class="tab-content">
-                <h2>Chat de Ajuda</h2>
-                <p>Envie sua dúvida e receba uma resposta automática de exemplo.</p>
-                <div id="chatMessages"></div>
-                <div style="display: flex; align-items: center;">
-                    <input type="text" id="chatInput" placeholder="Digite sua mensagem" onkeypress="if (event.key === 'Enter') { sendMessage(); }">
-                    <button onclick="sendMessage()">Enviar</button>
-                </div>
-            </section>
-        </main>
+        <main class="principal">Conteúdo Principal</main>
     </div>
-
-    <!-- Rodapé -->
     <footer id="rodape">&copy; Meu Site</footer>
-
-    <script>
-        // Função responsável por alternar entre as abas.
-        // Percorre todas as seções com a classe .tab-content, oculta-as
-        // e então exibe somente a aba correspondente ao id passado.
-        function showTab(tab) {
-            var tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(function (el) {
-                el.style.display = 'none';
-            });
-            var selected = document.getElementById(tab);
-            if (selected) {
-                selected.style.display = 'block';
-            }
-        }
-
-        // Quando a página carregar, define que a aba "Configurações" será exibida e aplica o tema claro
-        document.addEventListener('DOMContentLoaded', function () {
-            showTab('config');
-            // Aplica tema claro por padrão ao carregar a página
-            setTheme('claro');
-        });
-
-        // Função simples de chat que adiciona a mensagem digitada ao painel e
-        // exibe uma resposta automática de exemplo.
-        function sendMessage() {
-            var input = document.getElementById('chatInput');
-            var msg = input.value.trim();
-            if (!msg) return;
-            var chatMessages = document.getElementById('chatMessages');
-            // Adiciona a mensagem do usuário no painel de chat
-            var userPara = document.createElement('p');
-            userPara.textContent = 'Você: ' + msg;
-            chatMessages.appendChild(userPara);
-
-            // Normaliza a mensagem para facilitar a comparação de comandos
-            var lowerMsg = msg.toLowerCase();
-            var reply;
-            /*
-              Comandos básicos suportados:
-              - "ajuda" ou "/help": lista os comandos disponíveis.
-              - "claro": ativa o tema claro.
-              - "escuro": ativa o tema escuro.
-              - "oi", "olá": saudação simples.
-              Qualquer outra entrada gera uma mensagem padrão.
-            */
-            if (lowerMsg === 'ajuda' || lowerMsg === '/help') {
-                reply = 'Assistente: Comandos disponíveis: ajuda, claro, escuro, oi.';
-            } else if (lowerMsg.includes('claro')) {
-                // Ativa o tema claro ou  o tema escuro ao receber o comando
-                setTheme('claro');
-                reply = 'Assistente: Tema claro ativado.';
-            } else if (lowerMsg.includes('escuro')) {
-        
-                setTheme('escuro');
-                reply = 'Assistente: Tema escuro ativado.';
-            } else if (lowerMsg.includes('ola') || lowerMsg.includes('olá') || lowerMsg.includes('oi')) {
-                reply = 'Assistente: Olá! Como posso ajudar?';
-            } else {
-                reply = 'Assistente: Desculpe, não reconheço esse comando. Digite "ajuda" para ver a lista de comandos.';
-            }
-
-            // Adiciona a resposta do assistente no painel de chat
-            var botPara = document.createElement('p');
-            botPara.style.color = 'blue';
-            botPara.textContent = reply;
-            chatMessages.appendChild(botPara);
-
-            // Limpa o campo de entrada e rola o painel para a última mensagem
-            input.value = '';
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // Função que aplica o tema claro ou escuro ao corpo da página.
-        
-        function setTheme(theme) {
-            var body = document.body;
-            // Remove qualquer classe de tema existente
-            body.classList.remove('theme-claro', 'theme-escuro');
-            // Adiciona a nova classe com base na seleção do usuário
-            if (theme === 'escuro') {
-                body.classList.add('theme-escuro');
-            } else {
-                body.classList.add('theme-claro');
-            }
-        }
-    </script>
 </body>
 
 </html>
